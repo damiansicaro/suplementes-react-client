@@ -36,7 +36,7 @@ const EditProduct = () => {
     createProduct(fields)
       .then(() => {
         alert('Product Created');
-        navigate('.');
+        navigate('/');
       })
       .catch((error) => {
         setSubmitting(false);
@@ -48,7 +48,7 @@ const EditProduct = () => {
     updateProduct(id, fields)
       .then(() => {
         alert('Product updated');
-        navigate('..');
+        navigate('/');
       })
       .catch(error => {
         setSubmitting(false);
