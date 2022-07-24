@@ -3,13 +3,14 @@ import React from 'react';
 import { useEffect, useState, useContext } from 'react';
 
 import { Button, Card, ListGroup } from 'react-bootstrap';
-import { useParams, Link } from "react-router-dom"
-import { getProduct } from '../services/products';
-import { Container, Row, Col } from 'react-bootstrap';
+import { useParams, useNavigate } from "react-router-dom"
+import { getProduct, deleteProduct } from '../services/products';
+import { ButtonGroup, Container, Row, Col } from 'react-bootstrap';
 import UserContext from "../UserContext";
 
 const ProductPage = () => {
 
+  const navigate = useNavigate()
   const { user } = useContext(UserContext);
   const [product, setProduct] = useState({
     title: '',
@@ -36,7 +37,13 @@ const ProductPage = () => {
       <Container>
         {(user !== null) ? <Row>
           <Col sm={{ span: 1, offset: 1 }} md={{ span: 3, offset: 9 }}>
-            <Link to={'/products/edit/' + product.id}>Editar</Link>
+            <ButtonGroup aria-label="Acciones para este producto">
+              <Button onClick={() => navigate('/products/edit/' + product.id)}>Editar</Button>
+              <Button onClick={() => deleteProduct(productId).then(() => {
+                alert("Producto Eliminado");
+                navigate('/');
+              })}>Eliminar</Button>
+            </ButtonGroup>
           </Col>
         </Row> : ''}
         <Row className="justify-content-md-center">
