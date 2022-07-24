@@ -5,6 +5,7 @@ export function getProductsList() {
   return fetch(config.apiUrl + '/products')
     .then(data => data.json())
 }
+
 export function getProduct(id) {
   return fetch(config.apiUrl + '/products/' + id)
     .then(data => data.json())
@@ -28,14 +29,6 @@ export function createProduct(product) {
 }
 
 export function updateProduct(id, product) {
-  console.log(JSON.stringify({
-    id: id, 
-    title: product.title,
-    description: product.description,
-    price: product.price,
-    stock: product.stock,
-    imageUrl: product.imageUrl
-  }))
   return fetch(config.apiUrl + '/products', {
     method: 'PUT',
     headers: authHeader(),
@@ -46,6 +39,19 @@ export function updateProduct(id, product) {
       price: product.price,
       stock: product.stock,
       imageUrl: product.imageUrl
+    })
+  })
+    .then(response => {
+      return response
+    })
+}
+
+export function deleteProduct(id) {
+  return fetch(config.apiUrl + '/products', {
+    method: 'DELETE',
+    headers: authHeader(),
+    body: JSON.stringify({
+      id: id
     })
   })
     .then(response => {
